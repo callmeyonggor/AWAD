@@ -161,6 +161,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -187,6 +188,8 @@ return [
     | the aliases are "lazy" loaded so they don't hinder performance.
     |
     */
+
+    'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     'aliases' => [
 
