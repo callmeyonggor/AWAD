@@ -19,3 +19,5 @@ Route::get('/', function () {
 
 Route::match(['get', 'post'], 'invoice/listing', 'InvoiceController@listing')->name('invoice_listing');
 Route::get('invoice/delete/{id}', 'InvoiceController@delete')->name('invoice_delete');
+Route::get('invoice/edit/{id}', 'InvoiceController@edit')->name('invoice_edit');
+Route::get('invoice/create', 'InvoiceController@create')->name('invoice_create');
