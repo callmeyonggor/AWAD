@@ -13,4 +13,10 @@ class InvoiceController extends Controller
             'record' => $record,
         ]);
     }
+
+    public function delete($id){
+        $query = Invoice::find($id);
+        $query->delete();
+        return redirect('invoice/listing');
+    }
 }

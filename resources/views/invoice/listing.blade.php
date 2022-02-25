@@ -29,6 +29,7 @@
                     <td>{{$value->status}}</td>
                     <td>{{$value->created_at}}</td>
                     <td>{{$value->updated_at}}</td>
+                    <td><a href="delete/{{$value->id}}">Delete</a></td>
                 </tr>
             </tbody>
             @endforeach

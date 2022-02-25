@@ -18,3 +18,4 @@ Route::get('/', function () {
 });
 
 Route::match(['get', 'post'], 'invoice/listing', 'InvoiceController@listing')->name('invoice_listing');
+Route::get('invoice/delete/{id}', 'InvoiceController@delete')->name('invoice_delete');

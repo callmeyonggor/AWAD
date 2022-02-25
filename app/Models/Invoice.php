@@ -10,7 +10,7 @@ class Invoice extends Model
     use HasFactory;
 
     protected $table = 'invoice';
-    protected $primaryKey = 'invoice_id';
+    protected $primaryKey = 'id';
     protected $dateFormat = 'Y-m-d H:i:s';
 
     public static function get_record(){
