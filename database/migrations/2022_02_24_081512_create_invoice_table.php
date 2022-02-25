@@ -17,7 +17,7 @@ class CreateInvoiceTable extends Migration
             $table->id();
             $table->string('invoice_number');
             $table->json('item');
-            $table->string('invoice_total');
+            $table->float('invoice_total');
             $table->boolean('status')->default(0);
             $table->timestamps();
         });
