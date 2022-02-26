@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ItemDetailsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,3 +16,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('list',[ItemDetailsController::class,'list']);
+
+Route::get('delete/{id}',[ItemDetailsController::class,'delete']);
+
+Route::get('edit/{id}',[ItemDetailsController::class,'edit']);
+
+Route::post('edit',[ItemDetailsController::class,'update']);
+
+Route::view('add','add');
+
+Route::post('add',[ItemDetailsController::class,'addItem']);
