@@ -16,9 +16,7 @@ class CreateInvoiceTable extends Migration
         Schema::create('invoice', function (Blueprint $table) {
             $table->id();
             $table->string('invoice_number');
-            $table->json('item');
             $table->float('invoice_total');
-            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }
