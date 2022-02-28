@@ -9,21 +9,35 @@ use App\Models\Employee;
 
 class UserController extends Controller
 {
-    function addUser(Request $req){
-        //if its an Employee Account
-        //it is creating one row in User and Employee
-        //and has 1:1 relationship between User(id_PK):Employee(user_id_FK)
-        //else its an Customer Account
-        //it is creating one row in User
-        if ($req->is_emply == 1){ 
-            User::create ($req -> except(['department', 'permission']))
-            -> employee() -> create($req -> only(['department', 'permission']));
+    function addUser(Request $req, $type){
+        if ($req -> isMethod('post')){
+            if ($type == "employee"){
+                $req['is_emply'] = 1;
+                User::create ($req -> except(['department', 'permission']))
+                -> employee() -> create($req -> only(['department', 'permission']));
+            } else {
+                $req['is_emply'] = 0;
+                User::create($req -> all());
+            }
+            return redirect('/company/admin');
         } else {
-            User::create($req -> all());
+            return view('/company/add'.$type);
         }
-        return redirect('/user');
+        
     }
 
+    function getUsers(){
+        $customers = User::where('is_emply', 0) -> get();
+        $employees = User::where('is_emply', 1) -> with('employee') -> get();
+        // dd($employees);
+        return view(
+            'company/admin', 
+            [
+                'users' => $customers,
+                'employees' => $employees
+            ]);
+    }
+    
     function deleteUser(Request $req){
         User::find($req->id) -> delete();
         return redirect('/user');
