@@ -57,14 +57,4 @@ class User extends Authenticatable
             $this->employee()->delete();
         return parent::delete();
     }
-
-    // experiment @rickie
-    // public function update(array $req){ 
-    //     if ($this->employee() != null)
-    //         $this->employee()->update([
-    //             'department' => $req -> department,
-    //             'permission' => $req -> permission
-    //         ]);
-    //     return parent::update();
-    // }
 }
