@@ -15,6 +15,9 @@ class UserController extends Controller
         //and has 1:1 relationship between User(id_PK):Employee(user_id_FK)
         //else its an Customer Account
         //it is creating one row in User
+        $req->validate([
+            'email'=>'required',
+        ]);
         if ($req->is_emply == 1){ 
             User::create ($req -> except(['department', 'permission']))
             -> employee() -> create($req -> only(['department', 'permission']));
