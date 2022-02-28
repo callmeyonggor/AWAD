@@ -23,7 +23,6 @@ class UserController extends Controller
         } else {
             return view('/company/add'.$type);
         }
-        
     }
 
     function getUsers(){
