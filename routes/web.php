@@ -32,18 +32,26 @@ Route::view('product/add','add');
 Route::post('product/add',[ProductController::class,'addItem']);
 // ==>
 
-//<== @rickie's
+//<== @User,Employee TestController
 Route::get('/user', function(){
     return view('testuser');
 });
 Route::post('/get', [UserController::class, 'getUser']);
-Route::post('/add', [UserController::class, 'addUser']);
+Route::post('/user/add', [UserController::class, 'addUser']);
 Route::post('/update', [UserController::class, 'updateUser']);
 Route::post('/delete', [UserController::class, 'deleteUser']);
 // ==>
+
+Route::get('/company/admin', [UserController::class, 'getUsers']);
+Route::match(['get', 'post'], '/user/add/{type}', [UserController::class, 'addUser']);
+
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
+Route::match(['get', 'post'], 'product/listing', 'ProductController@listing')->name('product_listing');
