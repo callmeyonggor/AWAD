@@ -1,5 +1,5 @@
 <h1>Update Item</h1>
-<form action="edit" method="POST">
+<form action="{{ $submit }}" method="POST">
     @csrf
     <input type="hidden" name="id" value="{{$data['id']}}">
     <input type="text" name="name" value="{{$data['name']}}"> <br> <br>

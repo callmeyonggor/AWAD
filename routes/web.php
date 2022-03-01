@@ -26,9 +26,7 @@ Route::get('invoice/create', 'InvoiceController@create')->name('invoice_create')
 //<== @Hou
 Route::get('product/list',[ProductController::class,'list']);
 Route::get('product/delete/{id}',[ProductController::class,'delete']);
-Route::get('product/edit/{id}',[ProductController::class,'edit']);
-Route::post('product/edit',[ProductController::class,'update']);
-Route::view('product/add','add');
+Route::post('product/edit/{id}', [ProductController::class,'edit']);
 Route::post('product/add',[ProductController::class,'addItem']);
 // ==>
 

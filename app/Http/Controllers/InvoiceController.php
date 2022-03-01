@@ -32,7 +32,6 @@ class InvoiceController extends Controller
             return redirect('/invoice/listing');
         }
         if ($request->isMethod('post')) {
-            dd($request);
             $invoice->update([
             ]);
             Session::flash('success_msg', 'Successfully updated ');
