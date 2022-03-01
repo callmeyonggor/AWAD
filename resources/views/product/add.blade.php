@@ -10,4 +10,4 @@
     <input type="text" name="description" placeholder="Enter Item Description"> <br> <br>
     <button type="submit">Add Item</button>
 </form>
-<a href="/list">Show all items</a>
+<a href="/product/list">Show all items</a>

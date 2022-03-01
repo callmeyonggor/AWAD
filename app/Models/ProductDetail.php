@@ -11,7 +11,7 @@ class ProductDetail extends Model
     public $timestamps=false;
     protected $table = 'product';
     protected $fillable = [
-        'id', 'name', 'remaining_quantity', 'size', 'unit_price', 'created_at', 'updated_at'
+        'id', 'name', 'remaining_quantity', 'size', 'unit_price', 'category', 'status', 'description', 'created_at', 'updated_at'
     ];
 
     public static function get_record($search){
