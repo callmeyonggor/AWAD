@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ItemDetailsController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -24,12 +24,12 @@ Route::get('invoice/delete/{id}', 'InvoiceController@delete')->name('invoice_del
 Route::get('invoice/edit/{id}', 'InvoiceController@edit')->name('invoice_edit');
 Route::get('invoice/create', 'InvoiceController@create')->name('invoice_create');
 //<== @Hou
-Route::get('list',[ItemDetailsController::class,'list']);
-Route::get('delete/{id}',[ItemDetailsController::class,'delete']);
-Route::get('edit/{id}',[ItemDetailsController::class,'edit']);
-Route::post('edit',[ItemDetailsController::class,'update']);
-Route::view('add','add');
-Route::post('add',[ItemDetailsController::class,'addItem']);
+Route::get('product/list',[ProductController::class,'list']);
+Route::get('product/delete/{id}',[ProductController::class,'delete']);
+Route::get('product/edit/{id}',[ProductController::class,'edit']);
+Route::post('product/edit',[ProductController::class,'update']);
+Route::view('product/add','add');
+Route::post('product/add',[ProductController::class,'addItem']);
 // ==>
 
 //<== @rickie's
