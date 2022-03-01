@@ -24,10 +24,10 @@ Route::get('invoice/delete/{id}', 'InvoiceController@delete')->name('invoice_del
 Route::get('invoice/edit/{id}', 'InvoiceController@edit')->name('invoice_edit');
 Route::get('invoice/create', 'InvoiceController@create')->name('invoice_create');
 //<== @Hou
-Route::get('product/list',[ProductController::class,'list']);
+Route::get('product/list',[ProductController::class,'list'])->name('product_list');
 Route::get('product/delete/{id}',[ProductController::class,'delete']);
-Route::post('product/edit/{id}', [ProductController::class,'edit']);
-Route::post('product/add',[ProductController::class,'addItem']);
+Route::match(['get', 'post'], 'product/edit/{id}', [ProductController::class,'edit'])->name('product_edit');
+Route::match(['get', 'post'], 'product/add', [ProductController::class,'add'])->name('product_add');
 // ==>
 
 //<== @User,Employee TestController

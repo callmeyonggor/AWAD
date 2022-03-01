@@ -63,7 +63,7 @@ class ProductController extends Controller
 
     public static function edit(Request $req, $id)
     {
-        $data = ProductDetail::find($id);
+        $data = ProductDetail::query()->where('id' , $id)->first();
         if ($req->isMethod('post')) {
             $data->update([
                 'name' => $req->name,
@@ -74,7 +74,7 @@ class ProductController extends Controller
                 'status' => $req->status,
                 'description' => $req->description,
             ]);
-            return redirect('list');
+            return redirect('product/list');
         }
 
         return view('product/edit', [
@@ -83,17 +83,20 @@ class ProductController extends Controller
         ]);
     }
 
-    function addItem(Request $req)
+    public function add(Request $req)
     {
-        $data = new ProductDetail;
-        $data->name = $req->name;
-        $data->remaining_quantity = $req->remaining_quantity;
-        $data->size = $req->size;
-        $data->unit_price = $req->unit_price;
-        $data->category = $req->category;
-        $data->status = $req->status;
-        $data->description = $req->description;
-        $data->save();
-        return redirect('product/add');
+        if ($req->isMethod('post')) {
+            $data = new ProductDetail;
+            $data->name = $req->name;
+            $data->remaining_quantity = $req->remaining_quantity;
+            $data->size = $req->size;
+            $data->unit_price = $req->unit_price;
+            $data->category = $req->category;
+            $data->status = $req->status;
+            $data->description = $req->description;
+            $data->save();
+            return redirect('product/add');
+        }
+        return view('product/add');
     }
 }
