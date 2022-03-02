@@ -45,8 +45,8 @@
             @foreach($record as $val)
             <div class="col-3">
                 <div class="card-body">
-                    <h5 class="card-header">{{$val->item_name}}</h5>
-                    <img src='/storage/img/{{$val->item_name}}.jpg' alt="blackshirt" class="img-thumbnail">
+                    <h5 class="card-header">{{$val->name}}</h5>
+                    <img src='/storage/img/{{$val->name}}.jpg' alt="blackshirt" class="img-thumbnail">
                     <a href="#" class="btn btn-primary">Go somewhere</a>
                 </div>
             </div>
