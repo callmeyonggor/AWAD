@@ -9,15 +9,14 @@
         <th>Last Name</th>
         <th>Options</th>
     </tr>
-    @foreach($users as $user)
+    @foreach($customers as $customer)
     <tr>
-        <td>{{$user['id']}}</td>
-        <td>{{$user['email']}}</td>
-        <td>{{$user['first_name']}}</td>
-        <td>{{$user['last_name']}}</td>
-        <td><a href={{"deleteuser/".$user['id']}}>Edit</a>
-            <a href={{"showupdate/".$user['id']}}>Remove</a>
-        </td>
+        <td>{{$customer['id']}}</td>
+        <td>{{$customer['email']}}</td>
+        <td>{{$customer['first_name']}}</td>
+        <td>{{$customer['last_name']}}</td>
+        <td><a href={{"/customer/edit/customer/".$customer['id']}}>Edit</a></td>
+        <td><a href={{"/customer/delete/".$customer['id']}}>Delete</a></td>
     </tr>
     @endforeach
 </table>
@@ -43,8 +42,8 @@
         <td>{{$employee['last_name']}}</td>
         <td>{{$employee -> employee -> department}}</td>
         <td>{{$employee -> employee -> permission}}</td>
-        <td><a href={{"deleteuser/".$user['id']}}>Delete</a></td>
-        <td><a href={{"showupdate/".$user['id']}}>Update</a></td>
+        <td><a href={{"/user/edit/employee/".$employee['id']}}>Edit</a></td>
+        <td><a href={{"/user/delete/".$employee['id']}}>Delete</a></td>
     </tr>
     @endforeach
 </table>
