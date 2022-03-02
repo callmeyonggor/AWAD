@@ -21,35 +21,44 @@ class UserController extends Controller
             }
             return redirect('/company/admin');
         } else {
-            return view('/company/add'.$type);
+            return view('/user/adduser', ['type' => $type]);
         }
     }
 
     function getUsers(){
         $customers = User::where('is_emply', 0) -> get();
-        $employees = User::where('is_emply', 1) -> with('employee') -> get();
-        // dd($employees);
+        $employees = User::where('is_emply', 1) -> with('employee') -> get(); 
         return view(
             'company/admin', 
             [
-                'users' => $customers,
+                'customer' => $customers,
                 'employees' => $employees
             ]);
     }
     
-    function deleteUser(Request $req){
-        User::find($req->id) -> delete();
-        return redirect('/user');
+    function deleteUser($id){
+        User::find($id) -> delete();
+        return redirect('/company/admin');
     }
 
-    function updateUser(Request $req){
-        $user = User::find($req->id);
-        $user -> update($req->all());
-        $user -> employee() -> update([
-            'department' => $req -> department,
-            'permission' => $req -> permission
-        ]);
-        return redirect('/user');
+    function editUser(Request $req, $type, $id){
+        $user = User::find($id);
+        if ($req -> isMethod('post')){
+            if ($type == "employee"){
+                $req['is_emply'] = 1;
+                $user -> update ($req ->all());
+                $user -> employee -> update([
+                    'department' => $req -> department,
+                    'permission' => $req -> permission
+                ]);                 
+            } else {
+                $req['is_emply'] = 0;
+                $user -> update($req-> all());
+            }
+            return redirect('/company/admin');
+        } else {
+            return view('/user/edituser', ['type' => $type, 'user' => $user]);
+        }
     }
 
     function getUser(Request $req){

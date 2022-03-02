@@ -17,7 +17,6 @@ class Employee extends Model
     ];
 
     public function user(){
-        return $this->belongsTo(User::class)
-        -> as('department');
+        return $this->belongsTo(User::class);
     }
 }

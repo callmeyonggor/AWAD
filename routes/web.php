@@ -43,6 +43,8 @@ Route::post('/delete', [UserController::class, 'deleteUser']);
 
 Route::get('/company/admin', [UserController::class, 'getUsers']);
 Route::match(['get', 'post'], '/user/add/{type}', [UserController::class, 'addUser']);
+Route::match(['get', 'post'], '/user/edit/{type}/{id}', [UserController::class, 'editUser']);
+Route::match(['get', 'post'], '/user/delete/{id}', [UserController::class, 'deleteUser']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
