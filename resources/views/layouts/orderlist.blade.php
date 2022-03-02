@@ -19,8 +19,8 @@
         <td>{{$order -> Qty}}</td>
         <td>{{$order -> created_at}}</td>
         <td>{{$order -> updated_at}}</td>
-        <td><a href={{"delete/".$order -> id}}>Delete</a></td>
-        <td><a href={{"update/".$order -> id}}>Modify</a></td>
+        <td><a href={{"deleteorder/".$order -> id}}>Delete</a></td>
+        <td><a href={{"updateorder/".$order -> id}}>Modify</a></td>
     </tr>
     @endforeach
 
