@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 
@@ -43,13 +44,21 @@ Route::post('/delete', [UserController::class, 'deleteUser']);
 Route::get('/company/admin', [UserController::class, 'getUsers']);
 Route::match(['get', 'post'], '/user/add/{type}', [UserController::class, 'addUser']);
 
-
-
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+//<== @OrderController
+Route::get('/order', [OrderController::class, 'listOrder']);
+Route::get('/addorder', function() {
+    return view('layouts/addorder');
+});
+Route::post('/addorder', [OrderController::class, 'addOrder']);
+Route::get('/deleteorder/{id}', [OrderController::class, 'deleteOrder']);
+Route::get('/updateorder/{id}', [OrderController::class, 'updateOrderPage']);
+Route::post('/updateorder/{id}', [OrderController::class, 'modifyOrder']);
+// ==>
 
 Route::match(['get', 'post'], 'product/listing', 'ProductController@listing')->name('product_listing');
+
+require __DIR__.'/auth.php';
