@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ItemDetailsController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -24,12 +25,10 @@ Route::get('invoice/delete/{id}', 'InvoiceController@delete')->name('invoice_del
 Route::get('invoice/edit/{id}', 'InvoiceController@edit')->name('invoice_edit');
 Route::get('invoice/create', 'InvoiceController@create')->name('invoice_create');
 //<== @Hou
-Route::get('list',[ItemDetailsController::class,'list']);
-Route::get('delete/{id}',[ItemDetailsController::class,'delete']);
-Route::get('edit/{id}',[ItemDetailsController::class,'edit']);
-Route::post('edit',[ItemDetailsController::class,'update']);
-Route::view('add','add');
-Route::post('add',[ItemDetailsController::class,'addItem']);
+Route::get('product/list',[ProductController::class,'list'])->name('product_list');
+Route::get('product/delete/{id}',[ProductController::class,'delete']);
+Route::match(['get', 'post'], 'product/edit/{id}', [ProductController::class,'edit'])->name('product_edit');
+Route::match(['get', 'post'], 'product/add', [ProductController::class,'add'])->name('product_add');
 // ==>
 
 //<== @User,Employee TestController
@@ -51,6 +50,17 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+//<== @OrderController
+Route::get('/order', [OrderController::class, 'listOrder']);
+Route::get('/addorder', function() {
+    return view('layouts/addorder');
+});
+Route::post('/addorder', [OrderController::class, 'addOrder']);
+Route::get('/deleteorder/{id}', [OrderController::class, 'deleteOrder']);
+Route::get('/updateorder/{id}', [OrderController::class, 'updateOrderPage']);
+Route::post('/updateorder/{id}', [OrderController::class, 'modifyOrder']);
+// ==>
 
 Route::match(['get', 'post'], 'product/listing', 'ProductController@listing')->name('product_listing');
+
+require __DIR__.'/auth.php';
