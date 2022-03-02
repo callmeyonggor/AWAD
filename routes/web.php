@@ -24,4 +24,16 @@ Route::get('/dashboard', function () {
 
 Route::get('/order', [OrderController::class, 'listOrder']);
 
+Route::get('/addorder', function() {
+    return view('layouts/addorder');
+});
+
+Route::post('/addorder', [OrderController::class, 'addOrder']);
+
+Route::get('/delete/{id}', [OrderController::class, 'deleteOrder']);
+
+Route::get('/update/{id}', [OrderController::class, 'updateOrderPage']);
+
+Route::post('/update/{id}', [OrderController::class, 'modifyOrder']);
+
 require __DIR__.'/auth.php';
