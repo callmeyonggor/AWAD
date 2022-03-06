@@ -16,10 +16,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-4">
-                        {!! Form::select('category', $category_sel, @$category , ['class' => 'form-control select_active','id' => 'category']) !!}
+                        {!! Form::select('category', $category_sel, @$search['category'], ['class' => 'form-control select_active','id' => 'category']) !!}
                     </div>
                     <div class="col-4">
-                        {!! Form::select('product_order_by', $product_order_by_sel, @$order_by, ['class' => 'form-control select_active','id' => 'order_by']) !!}
+                        {!! Form::select('product_order_by', $product_order_by_sel, @$search['product_order_by'], ['class' => 'form-control select_active','id' => 'order_by']) !!}
                     </div>
                 </div>
             </div>

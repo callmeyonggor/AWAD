@@ -40,8 +40,7 @@ class ProductController extends Controller
                 'Muscle T' => 'Muscle T',
                 'Polo-collar T' => 'Polo-collar T'
             ],
-            'category' => $request->input('category'),
-            'order_by' => $request->input('order_by'),
+            'search' => $search,
             'record' => $record,
         ]);
     } //
