@@ -11,7 +11,7 @@ class ProductController extends Controller
 {
     public function filter(Request $request)
     {
-        $search = 0;
+        $search = ['product_order_by' => 1];
         if ($request->ajax()) { // filter function
             session(['product_search' => [
                 'category' => $request->input('category'),
@@ -51,7 +51,19 @@ class ProductController extends Controller
             Session::flash('fail_msg', 'Invalid Record, please try again later.');
             return redirect()->route('product_filter');
         }
-        return view('product/detail',['record' => $record]);
+        return view('product/detail',[
+            'record' => $record,
+            'size' => [ 
+                'XXXS' => 'XXXS', 
+                'XXS' => 'XXS', 
+                'XS' => 'XS', 
+                'S' => 'S', 
+                'M' => 'M', 
+                'L' => 'L', 
+                'XL' => 'XL', 
+                'XXL' => 'XXL', 
+                'XXXL' => 'XXXL'],
+        ]);
     }
     //
     function list()
