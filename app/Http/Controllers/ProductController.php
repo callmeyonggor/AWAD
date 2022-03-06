@@ -9,7 +9,7 @@ use Session;
 
 class ProductController extends Controller
 {
-    public function listing(Request $request)
+    public function filter(Request $request)
     {
         $search = 0;
         if ($request->ajax()) { // filter function
