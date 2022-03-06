@@ -26,7 +26,7 @@ class ProductController extends Controller
         }
         $search = session('product_search') ? session('product_search') : $search;
         $record = ProductDetail::get_record($search);
-        return view('product/listing', [
+        return view('product/filter', [
             'product_order_by_sel' => ['1' => 'Low to high', '2' => 'High to Low'],
             'category_sel' => [
                 ' ' => 'Please Select Category',
