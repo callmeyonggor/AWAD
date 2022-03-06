@@ -16,12 +16,6 @@ class ProductDetail extends Model
 
     public static function get_record($search){
         $query = ProductDetail::query();
-        $query->when(@$search['freetext'], function($q) use($search) {
-            $freetext = @$search['freetext'];
-            $q->where(function ($q2) use ($freetext){
-                $q2->orWhere('name', 'like' , '%' . $freetext . '%');
-            });
-        });
 
         $query->when(@$search['product_order_by'], function($q) use($search) {
             switch($search['product_order_by']){
@@ -34,8 +28,8 @@ class ProductDetail extends Model
             }
         });
 
-        $query->when(@$search['size'], function($q) use($search) {
-            $q->where('size', $search['size']);
+        $query->when(@$search['category'], function($q) use($search) {
+            $q->where('category', $search['category']);
         });
         return $query->get();
     }
