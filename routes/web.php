@@ -31,13 +31,16 @@ Route::match(['get', 'post'], 'product/edit/{id}', [ProductController::class,'ed
 Route::match(['get', 'post'], 'product/add', [ProductController::class,'add'])->name('product_add');
 
 Route::match(['get', 'post'], 'product/filter', 'ProductController@filter')->name('product_filter');
-Route::match(['get', 'post'], 'product/detail/{id}', 'ProductController@detail')->name('product_detail');
 Route::get('product/reset_filter',function(){
     if(session()->has('product_search')){
         session()->forget('product_search');
     };
     return redirect(route('product_filter'));
 });
+Route::match(['get', 'post'], 'product/detail/{id}', 'ProductController@detail')->name('product_detail');
+Route::match(['get', 'post'], 'product/order', 'ProductController@order')->name('product_order');
+Route::match(['get', 'post'], 'product/submit_order', 'ProductController@submit_order')->name('submit_order');
+
 // ==>
 
 //<== @User,Employee TestController
@@ -69,7 +72,5 @@ Route::get('/deleteorder/{id}', [OrderController::class, 'deleteOrder']);
 Route::get('/updateorder/{id}', [OrderController::class, 'updateOrderPage']);
 Route::post('/updateorder/{id}', [OrderController::class, 'modifyOrder']);
 // ==>
-
-Route::match(['get', 'post'], 'product/listing', 'ProductController@listing')->name('product_listing');
 
 require __DIR__.'/auth.php';
