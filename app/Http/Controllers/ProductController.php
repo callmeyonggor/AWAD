@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Models\ProductDetail;
-use Session;
 
 
 class ProductController extends Controller
@@ -45,25 +45,96 @@ class ProductController extends Controller
         ]);
     } //
 
-    public function detail($id){
+    public function detail($id)
+    {
         $record = ProductDetail::find($id);
-        if(!$record){
+        if (!$record) {
             Session::flash('fail_msg', 'Invalid Record, please try again later.');
             return redirect()->route('product_filter');
         }
-        return view('product/detail',[
+        return view('product/detail', [
             'record' => $record,
-            'size' => [ 
-                'XXXS' => 'XXXS', 
-                'XXS' => 'XXS', 
-                'XS' => 'XS', 
-                'S' => 'S', 
-                'M' => 'M', 
-                'L' => 'L', 
-                'XL' => 'XL', 
-                'XXL' => 'XXL', 
-                'XXXL' => 'XXXL'],
+            'size' => [
+                '' => 'Please select size',
+                'XXXS' => 'XXXS',
+                'XXS' => 'XXS',
+                'XS' => 'XS',
+                'S' => 'S',
+                'M' => 'M',
+                'L' => 'L',
+                'XL' => 'XL',
+                'XXL' => 'XXL',
+                'XXXL' => 'XXXL'
+            ],
         ]);
+    }
+
+    public function order(Request $request)
+    {
+        $data = null;
+        if ($request->isMethod('post')) {
+            $submit_type = $request->input('submit');
+            switch ($submit_type) {
+                case 'add':
+                    $data = ProductDetail::find($request->input('id'));
+                    $cart = session()->get('cart');
+                    if (!$cart) {
+                        $cart = [
+                            $data->id.$request->input('size') => [
+                                "id" => $data->id,
+                                "quantity" => $request->input('quantity'),
+                                "size" => $request->input('size'),
+                                "remaining_quantity" => $data->remaining_quantity,
+                                "unit_price" => $data->unit_price
+                            ]
+                        ];
+                        session()->put('cart', $cart);
+                        Session::flash('success_msg', 'Product added to cart');
+                        return view('product/order');
+                    }
+                    // if cart not empty then check if this product exist
+                    if (isset($cart[$data->id.$request->input('size')]) && $cart[$data->id.$request->input('size')]['size'] == $request->input('size')) {
+                        $cart[$data->id.$request->input('size')]['quantity'] = $cart[$data->id.$request->input('size')]['quantity'] + $request->input('quantity');
+                        session()->put('cart', $cart);
+                        Session::flash('success_msg', 'Product added to cart');
+                        return view('product/order');
+                    }
+                    $cart[$data->id.$request->input('size')] = [
+                        "id" => $data->id,
+                        "quantity" => $request->input('quantity'),
+                        "size" => $request->input('size'),
+                        "remaining_quantity" => $data->remaining_quantity,
+                        "unit_price" => $data->unit_price
+                    ];
+                    session()->put('cart', $cart);
+                    Session::flash('success_msg', 'Product added to cart');
+                    return view('product/order');
+                    break;
+                case 'cancel':
+                    return redirect(route('product_filter'));
+                    break;
+            }
+        }
+
+
+        return view('product/order');
+    }
+
+    public function submit_order(Request $request){
+        if ($request->isMethod('post')) {
+            $submit_type = $request->input('submit');
+            switch ($submit_type) {
+                case 'add':
+                    return redirect(route('product_filter'));
+                case 'clear':
+                    $request->session()->forget('cart');
+                    return redirect(route('product_order'));
+                    break;
+                case 'submit':
+                    dd($request);
+                    break;
+            }
+        }
     }
     //
     function list()
@@ -81,7 +152,7 @@ class ProductController extends Controller
 
     public static function edit(Request $req, $id)
     {
-        $data = ProductDetail::query()->where('id' , $id)->first();
+        $data = ProductDetail::query()->where('id', $id)->first();
         if ($req->isMethod('post')) {
             $data->update([
                 'name' => $req->name,

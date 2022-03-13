@@ -6,7 +6,7 @@
 </head>
 
 <body>
-    <form action="" method="POST" >
+    <form action="/product/order" method="POST">
         @csrf
         <div class="container">
             <div class="card">
@@ -19,22 +19,17 @@
                             <ul class="preview-thumbnail nav nav-tabs">
                                 <!-- Other picture -->
                             </ul>
-
                         </div>
                         <div class="details col-md-6">
                             <h3 class="product-title">{{$record->name}}</h3>
                             <p class="product-description">{{$record->description}}</p>
                             <h4 class="price">Unit price: <span>{{$record->unit_price}}</span></h4>
-                            <h5>sizes:
-                                @foreach($size as $size_type)
-                                <button type="button" class="btn" data-toggle="tooltip" data-placement="top" title="{{$size_type}}" name="size" value="{{$size_type}}">
-                                    {{$size_type}}
-                                </button>
-                                @endforeach
-                            </h5>
+                            <h5>Sizes:</h5>
+                            {!! Form::select('size', $size, @$search['category'], ['class' => 'form-control select_active']) !!}
                             <div class="form-outline col-4">
                                 <label class="form-label" for="typeNumber">Quantity Input</label>
-                                <input type="number" id="typeNumber" class="form-control" />
+                                <input type="number" id="typeNumber" class="form-control" name="quantity" required/>
+                                <input type="hidden" class="form-control" name="id" value="{{$record->id}}" />
                             </div>
                             <div class="float-right">
                                 <button class="btn btn-default" type="submit" name="submit" value="cancel">Cancel</button>
@@ -47,10 +42,3 @@
         </div>
     </form>
 </body>
-<script>
-    $(document).ready(function() {
-        $("body").tooltip({
-            selector: '[data-toggle=tooltip]'
-        });
-    });
-</script>
