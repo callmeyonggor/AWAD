@@ -64,6 +64,7 @@ Route::get('/dashboard', function () {
 
 //<== @OrderController
 Route::get('/order', [OrderController::class, 'listOrder']);
+Route::get('/order/{InvoiceID}', [OrderController::class, 'listOrderToID']);
 Route::get('/addorder', function() {
     return view('layouts/addorder');
 });

@@ -13,6 +13,11 @@ class OrderController extends Controller
         return View('layouts/orderlist', ['data' => $data]);
     }
 
+    function listOrderToID($InvoiceID) {
+        $data = Order::where('InvoiceID', '=', $InvoiceID) -> get();
+        return view('layouts/orderlistwithid', ['data' => $data]);
+    }
+
     function addOrder(Request $req) {
         $order = new Order;
         $order -> InvoiceID = $req -> InvoiceID;
