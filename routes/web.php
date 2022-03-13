@@ -29,6 +29,15 @@ Route::get('product/list',[ProductController::class,'list'])->name('product_list
 Route::get('product/delete/{id}',[ProductController::class,'delete']);
 Route::match(['get', 'post'], 'product/edit/{id}', [ProductController::class,'edit'])->name('product_edit');
 Route::match(['get', 'post'], 'product/add', [ProductController::class,'add'])->name('product_add');
+
+Route::match(['get', 'post'], 'product/filter', 'ProductController@filter')->name('product_filter');
+Route::match(['get', 'post'], 'product/detail/{id}', 'ProductController@detail')->name('product_detail');
+Route::get('product/reset_filter',function(){
+    if(session()->has('product_search')){
+        session()->forget('product_search');
+    };
+    return redirect(route('product_filter'));
+});
 // ==>
 
 //<== @User,Employee TestController

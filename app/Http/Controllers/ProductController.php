@@ -4,49 +4,67 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ProductDetail;
+use Session;
 
 
 class ProductController extends Controller
 {
-    public function listing(Request $request)
+    public function filter(Request $request)
     {
         $search = ['product_order_by' => 1];
-        if ($request->isMethod('post')) { // filter function
-            $submit_type = $request->input('submit');
+        if ($request->ajax()) { // filter function
+            session(['product_search' => [
+                'category' => $request->input('category'),
+                'product_order_by' => $request->input('order_by'),
+            ]]);
 
-            switch ($submit_type) {
-                case 'search':
-                    session(['product_search' => [
-                        'freetext' => $request->input('freetext'),
-                        'size' => $request->input('size'),
-                        'product_order_by' => $request->input('product_order_by'),
-                    ]]);
-
-                    break;
-                case 'reset':
-                    session()->forget('product_search');
-                    break;
-            }
+            // switch ($submit_type) {
+            //     case 'reset':
+            //         session()->forget('product_search');
+            //         break;
+            // }
         }
         $search = session('product_search') ? session('product_search') : $search;
         $record = ProductDetail::get_record($search);
-        return view('product/listing', [
+        return view('product/filter', [
             'product_order_by_sel' => ['1' => 'Low to high', '2' => 'High to Low'],
-            'size_sel' => [
-                ' ' => 'Please Select Size',
-                'XXXS' => 'XXXS',
-                'XXS' => 'XXS',
-                'XS' => 'XS',
-                'S' => 'S',
-                'M' => 'M',
-                'L' => 'L',
-                'XL' => 'XL',
-                'XXL' => 'XXL',
-                'XXXL' => 'XXXL'
+            'category_sel' => [
+                ' ' => 'Please Select Category',
+                'Half Sleeve T' => 'Half Sleeve T',
+                'V-neck T' => 'V-neck T',
+                'Ringer T' => 'Ringer T',
+                'Cap-sleeve T' => 'Cap-sleeve T',
+                'Pocket T' => 'Pocket T',
+                'Turtle-neck T' => 'Turtle-neck T',
+                'Singlet T' => 'Singlet T',
+                'Muscle T' => 'Muscle T',
+                'Polo-collar T' => 'Polo-collar T'
             ],
+            'search' => $search,
             'record' => $record,
         ]);
     } //
+
+    public function detail($id){
+        $record = ProductDetail::find($id);
+        if(!$record){
+            Session::flash('fail_msg', 'Invalid Record, please try again later.');
+            return redirect()->route('product_filter');
+        }
+        return view('product/detail',[
+            'record' => $record,
+            'size' => [ 
+                'XXXS' => 'XXXS', 
+                'XXS' => 'XXS', 
+                'XS' => 'XS', 
+                'S' => 'S', 
+                'M' => 'M', 
+                'L' => 'L', 
+                'XL' => 'XL', 
+                'XXL' => 'XXL', 
+                'XXXL' => 'XXXL'],
+        ]);
+    }
     //
     function list()
     {

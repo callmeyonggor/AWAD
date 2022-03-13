@@ -50,7 +50,6 @@ class InvoiceController extends Controller
     public function create(Request $request){
         $post = $request;
         if ($request->isMethod('post')) {
-            dd($request);
             $invoice = Invoice::create([
                 'Invoice_total' => $request->input('invoice_total'),
             ]);
