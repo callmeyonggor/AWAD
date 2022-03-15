@@ -140,7 +140,7 @@ class ProductController extends Controller
     function list()
     {
         $data = ProductDetail::all();
-        return view('product/list', ['product' => $data]);
+        return view('contents/product/list', ['product' => $data]);
     }
 
     function delete($id)
@@ -166,7 +166,7 @@ class ProductController extends Controller
             return redirect('product/list');
         }
 
-        return view('product/edit', [
+        return view('contents/product/edit', [
             'submit' => route('product_edit', $id),
             'data' => $data,
         ]);
@@ -186,6 +186,6 @@ class ProductController extends Controller
             $data->save();
             return redirect('product/add');
         }
-        return view('product/add');
+        return view('contents/product/add');
     }
 }
