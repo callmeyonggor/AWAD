@@ -10,12 +10,12 @@ class OrderController extends Controller
 {
     function listOrder() {
         $data = Order::all();
-        return View('layouts/orderlist', ['data' => $data]);
+        return View('contents/order/orderlist', ['data' => $data]);
     }
 
     function listOrderToID($InvoiceID) {
         $data = Order::where('InvoiceID', '=', $InvoiceID) -> get();
-        return view('layouts/orderlistwithid', ['data' => $data]);
+        return view('contents/order/orderlistwithid', ['data' => $data]);
     }
 
     function addOrder(Request $req) {
@@ -36,7 +36,7 @@ class OrderController extends Controller
 
     function updateOrderPage($id) {
         $oldorder = Order::find($id);
-        return view('layouts/updatepage', ['oldorder' => $oldorder]);
+        return view('contents/order/updatepage', ['oldorder' => $oldorder]);
     }
 
     function modifyOrder(Request $req) {

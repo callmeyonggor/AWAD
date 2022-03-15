@@ -66,7 +66,7 @@ Route::get('/dashboard', function () {
 Route::get('/order', [OrderController::class, 'listOrder']);
 Route::get('/order/{InvoiceID}', [OrderController::class, 'listOrderToID']);
 Route::get('/addorder', function() {
-    return view('layouts/addorder');
+    return view('contents/order/addorder');
 });
 Route::post('/addorder', [OrderController::class, 'addOrder']);
 Route::get('/deleteorder/{id}', [OrderController::class, 'deleteOrder']);
