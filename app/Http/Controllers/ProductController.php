@@ -26,7 +26,7 @@ class ProductController extends Controller
         }
         $search = session('product_search') ? session('product_search') : $search;
         $record = ProductDetail::get_record($search);
-        return view('product/filter', [
+        return view('contents/product/filter', [
             'product_order_by_sel' => ['1' => 'Low to high', '2' => 'High to Low'],
             'category_sel' => [
                 ' ' => 'Please Select Category',
@@ -52,7 +52,7 @@ class ProductController extends Controller
             Session::flash('fail_msg', 'Invalid Record, please try again later.');
             return redirect()->route('product_filter');
         }
-        return view('product/detail', [
+        return view('contents/product/detail', [
             'record' => $record,
             'size' => [
                 '' => 'Please select size',
@@ -90,14 +90,14 @@ class ProductController extends Controller
                         ];
                         session()->put('cart', $cart);
                         Session::flash('success_msg', 'Product added to cart');
-                        return view('product/order');
+                        return view('contents/product/order');
                     }
                     // if cart not empty then check if this product exist
                     if (isset($cart[$data->id.$request->input('size')]) && $cart[$data->id.$request->input('size')]['size'] == $request->input('size')) {
                         $cart[$data->id.$request->input('size')]['quantity'] = $cart[$data->id.$request->input('size')]['quantity'] + $request->input('quantity');
                         session()->put('cart', $cart);
                         Session::flash('success_msg', 'Product added to cart');
-                        return view('product/order');
+                        return view('contents/product/order');
                     }
                     $cart[$data->id.$request->input('size')] = [
                         "id" => $data->id,
@@ -108,7 +108,7 @@ class ProductController extends Controller
                     ];
                     session()->put('cart', $cart);
                     Session::flash('success_msg', 'Product added to cart');
-                    return view('product/order');
+                    return view('contents/product/order');
                     break;
                 case 'cancel':
                     return redirect(route('product_filter'));
@@ -117,7 +117,7 @@ class ProductController extends Controller
         }
 
 
-        return view('product/order');
+        return view('contents/product/order');
     }
 
     public function submit_order(Request $request){
