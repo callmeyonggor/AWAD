@@ -19,9 +19,9 @@ class CreateProductTable extends Migration
             $table->integer('remaining_quantity');
             $table->string('size');
             $table->double('unit_price', 5, 2);
+            $table->string('description');
             $table->string('category');
             $table->boolean('status');
-            $table->string('description'); 
             $table->timestamps();
         });
     }
