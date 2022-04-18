@@ -13,10 +13,14 @@ class CreateInvoiceTable extends Migration
      */
     public function up()
     {
-        Schema::create('invoice', function (Blueprint $table) {
+        Schema::create('invoices', function (Blueprint $table) {
             $table->id();
-            $table->string('invoice_number');
             $table->float('invoice_total');
+            $table->string('name');
+            $table->string('company_name');
+            $table->string('address');
+            $table->string('phone');
+            $table->string('user_id');
             $table->timestamps();
         });
     }

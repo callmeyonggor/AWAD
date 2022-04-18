@@ -1,31 +1,32 @@
-<h1>Inventory</h1>
+@extends('layouts.auth')
 
-<table border="1">
-    <tr>
-        <td>ID</td>
-        <td>Item Name</td>
-        <td>Quatity</td>
-        <td>Size</td>
-        <td>Unit Price</td>
-        <td>Description</td>
-        <td>Category</td>
-        <td>Status</td>
-        <td>Operation</td>
-        <td>Operation 2</td>
-    </tr>
-@foreach ($product as $data)
-    <tr>
-        <td>{{$data['id']}}</td>
-        <td>{{$data['name']}}</td>
-        <td>{{$data['remaining_quantity']}}</td>
-        <td>{{$data['size']}}</td>
-        <td>{{$data['unit_price']}}</td>
-        <td>{{$data['description']}}</td>
-        <td>{{$data['category']}}</td>
-        <td>{{$data['status']}}</td>
-        <td><a href={{"delete/".$data['id']}} >Delete</a></td>
-        <td><a href={{"edit/".$data['id']}} >Edit</a></td>
-    </tr>
-@endforeach
-</table>
-<a href="add">Add items</a>
+<style>
+    .container_table {
+        float:right;
+        width: 85%;
+    }
+</style>
+
+@section('content')
+
+<div class="container_table">
+    <div class="row justify-content-center">
+        <div class="col-md-11">
+            <div class="card">
+                <div class="card-body">
+                    This is Inventory Table
+                    <div id="inventorypage"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/app.js"></script>
+@endsection
+
+
+
+
+
+

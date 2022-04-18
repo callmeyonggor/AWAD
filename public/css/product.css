@@ -1,0 +1,23 @@
+.hover:hover,  .hover:active{
+    transform: scale(1.005);
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
+    background-image: linear-gradient(-45deg, yellow, 0%, yellow 100%)
+}
+
+
+.readonly, .readonly:focus{
+    border:0;
+    outline:none!important;
+}
+
+i{
+    cursor: pointer;
+}
+
+table {
+    counter-reset: tableCount;     
+}
+.counterCell:before {              
+    content: counter(tableCount); 
+    counter-increment: tableCount; 
+}

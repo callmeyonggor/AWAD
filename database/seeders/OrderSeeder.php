@@ -4,9 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\rand;
+use Carbon\Carbon;
 
-class TestSeeder extends Seeder
+class OrderSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,12 +15,61 @@ class TestSeeder extends Seeder
      */
     public function run()
     {
-        for($i = 0; $i < 10; $i++) {
-            DB::table('orders')->insert([
-                'InvoiceID' => rand(0, 10),
-                'ItemID' => rand(0, 10),
-                'Qty' => rand(0, 10),
-            ]);
-        }
+        DB::table('orders')->insert([
+            'InvoiceID' => 1,
+            'ItemID' => 1,
+            'Size' => 'S',
+            'Qty' => 1,
+            'seeder' => 'M',
+            'created_at' => Carbon::now(),
+        ]);
+        DB::table('orders')->insert([
+            'InvoiceID' => 1,
+            'ItemID' => 2,
+            'Size' => 'M',
+            'Qty' => 2,
+            'seeder' => 'L',
+            'created_at' => Carbon::now(),
+        ]);
+        DB::table('orders')->insert([
+            'InvoiceID' => 1,
+            'ItemID' => 3,
+            'Size' => 'L',
+            'Qty' => 3,
+            'seeder' => 'S',
+            'created_at' => Carbon::now(),
+        ]);
+        DB::table('orders')->insert([
+            'InvoiceID' => 2,
+            'ItemID' => 1,
+            'Size' => 'S',
+            'Qty' => 1,
+            'seeder' => 'M',
+            'created_at' => Carbon::now(),
+        ]);
+        DB::table('orders')->insert([
+            'InvoiceID' => 2,
+            'ItemID' => 1,
+            'Size' => 'M',
+            'Qty' => 2,
+            'seeder' => 'L',
+            'created_at' => Carbon::now(),
+        ]);
+        DB::table('orders')->insert([
+            'InvoiceID' => 3,
+            'ItemID' => 3,
+            'Size' => 'L',
+            'Qty' => 3,
+            'seeder' => 'S',
+            'created_at' => Carbon::now(),
+        ]);
+        DB::table('orders')->insert([
+            'InvoiceID' => 3,
+            'ItemID' => 2,
+            'Size' => 'S',
+            'Qty' => 4,
+            'seeder' => 'M',
+            'created_at' => Carbon::now(),
+        ]);
     }
 }

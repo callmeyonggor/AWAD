@@ -10,23 +10,19 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory;
     use HasApiTokens, HasFactory, Notifiable;
-    public $timestamps = false;
-    protected $table = 'user';
-    
+
+    protected $guard = 'user';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
+        'name',
         'email',
         'password',
-        'first_name',
-        'last_name',
-        'phone',
-        'is_emply'
     ];
 
     /**
@@ -47,14 +43,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function employee(){
-        return $this->hasOne('App\Models\Employee');
-    }
-
-    public function delete(){
-        if ($this->employee() != null)
-            $this->employee()->delete();
-        return parent::delete();
-    }
 }

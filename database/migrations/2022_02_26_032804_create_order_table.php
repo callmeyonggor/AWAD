@@ -17,7 +17,9 @@ class CreateOrderTable extends Migration
             $table->id();
             $table->integer('InvoiceID');
             $table->integer('ItemID');
+            $table->string('Size');
             $table->integer('Qty');
+            $table->string('size');
             $table->timestamps();
         });
     }

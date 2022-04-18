@@ -8,8 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Invoice extends Model
 {
     use HasFactory;
+    protected $fillable = ['invoice_total', 'name','company_name','address','phone','user_id','created_at','updated_at',];
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'InvoiceID', 'id');
+    }
 
-    protected $table = 'invoice';
+    protected $table = 'invoices';
     protected $primaryKey = 'id';
     protected $dateFormat = 'Y-m-d H:i:s';
 

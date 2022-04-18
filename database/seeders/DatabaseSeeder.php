@@ -14,10 +14,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            InvoiceTableSeeder::class,
-            ProductSeeder::class,
-            UserSeeder::class,
-        ]);
-        // \App\Models\User::factory(10)->create();
+            InventorySeeder::class,
+            InvoiceSeeder::class,
+            OrderSeeder::class,
+            ]);
     }
 }

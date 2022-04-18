@@ -3,12 +3,38 @@
 namespace App\Http\Controllers;
 
 use App\Models\Invoice;
+use App\Models\Order;
 
 use Illuminate\Http\Request;
-use Session;
+use Illuminate\Support\Facades\DB;
 
 class InvoiceController extends Controller
 {
+    public function retrieveOrder($InvoiceID) {
+        //$invoice = Invoice::where('id', '=', $InvoiceID) -> first();
+        $invoice = Invoice::find($InvoiceID);
+        $order = $invoice->orders;
+        return $order;
+    }
+
+    public function retrieveSpecificInvoice($InvoiceID) {
+        $invoice = Invoice::where('id', '=', $InvoiceID) -> first();
+        return $invoice;
+    }
+
+    public function listInvoice() {
+        return view('invoice/InvoiceList');
+    }
+
+    public function view() {
+        $data = Invoice::All();
+        return view('invoice/userinvoicelist', ['data' => $data]);
+    }
+
+    public function retrieveInvoice() {
+        return Invoice::All();
+    }
+
     public function listing()
     {
         $record = Invoice::get_record();

@@ -5,46 +5,42 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Order;
+use App\Models\Invoice;
+use App\Models\InventoryDetail;
 
 class OrderController extends Controller
 {
+    
+
     function listOrder() {
         $data = Order::all();
-        return View('contents/order/orderlist', ['data' => $data]);
+        return View('order/orderlist', ['data' => $data]);
     }
 
-    function listOrderToID($InvoiceID) {
+    function view($InvoiceID) {
         $data = Order::where('InvoiceID', '=', $InvoiceID) -> get();
-        return view('contents/order/orderlistwithid', ['data' => $data]);
+        $invoice = Invoice::find($InvoiceID);
+        return view('order/orderlistwithid', ['data' => $data, 'invoice' => $invoice,]);
     }
 
-    function addOrder(Request $req) {
-        $order = new Order;
-        $order -> InvoiceID = $req -> InvoiceID;
-        $order -> ItemID = $req -> ItemID;
-        $order -> Qty = $req -> Qty;
-        $order -> save();
-        return redirect('addorder');
-
+    function getProductName($id) {
+        $data = InventoryDetail::find($id);
+        $name = $data->name;
+        return $name;
     }
 
-    function deleteOrder($id) {
-        $deleteorder = Order::find($id);
-        $deleteorder -> delete();
-        return redirect('order');
+    function getProductPrice($id) {
+        $data = InventoryDetail::find($id);
+        $unit_price = $data->unit_price;
+        return $unit_price;
     }
 
-    function updateOrderPage($id) {
-        $oldorder = Order::find($id);
-        return view('contents/order/updatepage', ['oldorder' => $oldorder]);
-    }
-
-    function modifyOrder(Request $req) {
-        $neworder = Order::find($req -> id);
-        $neworder -> InvoiceID = $req -> InvoiceID;
-        $neworder -> ItemID = $req -> ItemID;
-        $neworder -> Qty = $req -> Qty;
-        $neworder -> save();
-        return redirect('order');
+    function getProductOrderPrice($itemid, $orderid) {
+        $item = InventoryDetail::find($itemid);
+        $order = Order::find($orderid);
+        $unit_price = $item->unit_price;
+        $qty = $order->Qty;
+        $order_price = $qty * $unit_price;
+        return $order_price;
     }
 }
